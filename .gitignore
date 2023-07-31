@@ -1,0 +1,9 @@
+/vendor/
+.vscode
+.env
+database.env
+composer.lock
+*.code-workspace
+
+
+
