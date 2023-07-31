@@ -7,7 +7,6 @@ use JDS\Http\Request;
 use JDS\Http\Response;
 use JDS\Routing\Router;
 use JDS\Exceptions\HttpException;
-use JDS\Exceptions\HttpRequestMethodException;
 
 /**
  * Core of the application

@@ -2,12 +2,12 @@
 
 namespace JDS\Routing;
 
-use JDS\Exceptions\HttpException;
-use JDS\Exceptions\HttpRequestMethodException;
 use JDS\Http\Request;
 use FastRoute\Dispatcher;
-use FastRoute\RouteCollector;
-use function \FastRoute\simpleDispatcher;
+use function FastRoute\simpleDispatcher;
+use JDS\Exceptions\HttpException;
+use JDS\Exceptions\HttpRequestMethodException;
+
 
 class Router implements RouterInterface 
 {
