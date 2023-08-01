@@ -1,11 +1,11 @@
 <?php
 
-namespace JDSFramework\Http;
+namespace JDS\Framework\Http;
 
 /**
  * Provide a response to the request
  * 
- * @package JDSFramework\Http
+ * @package JDS\Framework\Http
  */
 class Response
 {

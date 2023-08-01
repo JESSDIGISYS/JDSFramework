@@ -1,5 +1,5 @@
 {
-	"name": "jds/jdsframework",
+	"name": "jds/framework",
 	"description": "Jessop Digital Systems PHP Framework",
 	"minimum-stability": "dev",
 	"license": "BDS 3-Clause",
@@ -23,7 +23,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"JDSFramework\\": "src/"
+			"JDS\\Framework\\": "src/"
 		}
 	}
 }

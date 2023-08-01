@@ -1,6 +1,6 @@
 <?php
 
-namespace JDSFramework\Exceptions;
+namespace JDS\Framework\Exceptions;
 
 use Exception;
 

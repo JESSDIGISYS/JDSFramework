@@ -1,11 +1,11 @@
 <?php
 
-namespace JDSFramework\Http;
+namespace JDS\Framework\Http;
 
 /**
  * Receive a request
  * 
- * @package JDSFramework\Http
+ * @package JDS\Framework\Http
  */
 class Request 
 {
