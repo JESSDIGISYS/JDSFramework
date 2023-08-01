@@ -2,7 +2,7 @@
 	"name": "jds/framework",
 	"description": "Jessop Digital Systems PHP Framework",
 	"minimum-stability": "dev",
-	"license": "BSD 3-Clause \"New\" or \"Revised\" License",
+	"license": "BSD-3-Clause",
 	"authors": [
 		{
 			"name": "Mr J",
