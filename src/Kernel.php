@@ -1,12 +1,12 @@
 <?php
 
-namespace JDS\Framework;
+namespace JDS;
 
 use Exception;
-use JDS\Framework\Http\Request;
-use JDS\Framework\Http\Response;
-use JDS\Framework\Routing\Router;
-use JDS\Framework\Exceptions\HttpException;
+use JDS\Http\Request;
+use JDS\Http\Response;
+use JDS\Routing\Router;
+use JDS\Exceptions\HttpException;
 
 /**
  * Core of the application
@@ -14,7 +14,7 @@ use JDS\Framework\Exceptions\HttpException;
  * its primary responsibility is to
  * receive a request and output a response
  * 
- * @package JDS\Framework
+ * @package JDS
  */
 class Kernel
 {

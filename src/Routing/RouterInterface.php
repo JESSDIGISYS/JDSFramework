@@ -1,13 +1,13 @@
 <?php
 
-namespace JDS\Framework\Routing;
+namespace JDS\Routing;
 
-use JDS\Framework\Http\Request;
+use JDS\Http\Request;
 
 /**
  * Router contract - handshake 
  * 
- * @package JDS\Framework\Routing
+ * @package JDS\Routing
  */
 interface RouterInterface
 {
