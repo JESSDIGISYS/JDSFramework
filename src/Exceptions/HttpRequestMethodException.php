@@ -1,6 +1,6 @@
 <?php
 
-namespace JDS\Exceptions;
+namespace JDSFramework\Exceptions;
 
 class HttpRequestMethodException extends HttpException
 {

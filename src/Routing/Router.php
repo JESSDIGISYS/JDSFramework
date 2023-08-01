@@ -1,13 +1,13 @@
 <?php
 
-namespace JDS\Routing;
+namespace JDSFramework\Routing;
 
-use JDS\Http\Request;
+use JDSFramework\Http\Request;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
-use JDS\Exceptions\HttpException;
+use JDSFramework\Exceptions\HttpException;
 use function FastRoute\simpleDispatcher;
-use JDS\Exceptions\HttpRequestMethodException;
+use JDSFramework\Exceptions\HttpRequestMethodException;
 
 
 class Router implements RouterInterface 
