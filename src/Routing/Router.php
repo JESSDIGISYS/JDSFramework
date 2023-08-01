@@ -4,8 +4,9 @@ namespace JDS\Routing;
 
 use JDS\Http\Request;
 use FastRoute\Dispatcher;
-use function FastRoute\simpleDispatcher;
+use FastRoute\RouteCollector;
 use JDS\Exceptions\HttpException;
+use function FastRoute\simpleDispatcher;
 use JDS\Exceptions\HttpRequestMethodException;
 
 
