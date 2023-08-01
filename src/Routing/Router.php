@@ -10,10 +10,10 @@ use function FastRoute\simpleDispatcher;
 use JDS\Exceptions\HttpRequestMethodException;
 
 
-class Router implements RouterInterface 
+class Router implements RouterInterface
 {
 
-	public function dispatch(Request $request) : array
+	public function dispatch(Request $request): array
 	{
 
 		$routeInfo = $this->extractRouteInfo($request);
@@ -34,7 +34,7 @@ class Router implements RouterInterface
 
 	}
 
-	private function extractRouteInfo(Request $request) : array
+	private function extractRouteInfo(Request $request): array
 	{
 		// ***** Create a dispatcher *****
 		$dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
@@ -75,4 +75,3 @@ class Router implements RouterInterface
 		}
 	}
 }
-

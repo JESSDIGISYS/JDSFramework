@@ -7,7 +7,7 @@ namespace JDS\Http;
  * 
  * @package JDS\Http
  */
-class Request 
+class Request
 {
 
 	public function __construct(
@@ -16,8 +16,7 @@ class Request
 		public readonly array $cookies,
 		public readonly array $files,
 		public readonly array $server
-	) 
-	{
+	) {
 	}
 
 	/**
@@ -25,18 +24,18 @@ class Request
 	 * 
 	 * @return static 
 	 */
-	public static function createFromGlobals() : static 
+	public static function createFromGlobals(): static
 	{
 		return new static($_GET, $_POST, $_COOKIE, $_FILES, $_SERVER);
 	}
 
-	public function getPathInfo() : string
+	public function getPathInfo(): string
 	{
 		// use the string token function
 		return strtok($this->server['REQUEST_URI'], '?');
 	}
 
-	public function getMethod() : string
+	public function getMethod(): string
 	{
 		return $this->server['REQUEST_METHOD'];
 	}

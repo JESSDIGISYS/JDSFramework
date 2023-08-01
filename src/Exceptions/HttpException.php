@@ -10,7 +10,7 @@ class HttpException extends Exception
 
 	/**
 	 * Get the value of statusCode
-	 */ 
+	 */
 	public function getStatusCode()
 	{
 		return $this->statusCode;
@@ -20,7 +20,7 @@ class HttpException extends Exception
 	 * Set the value of statusCode
 	 *
 	 * @return  self
-	 */ 
+	 */
 	public function setStatusCode($statusCode)
 	{
 		$this->statusCode = $statusCode;
