@@ -38,7 +38,7 @@ class Router implements RouterInterface
 
 	}
 
-	public function setRoutes(array $routes) : void
+	public function setRoutes(array $routes): void
 	{
 		$this->routes = $routes;
 	}
@@ -48,7 +48,7 @@ class Router implements RouterInterface
 		// ***** Create a dispatcher *****
 		$dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
 
-			
+
 			foreach ($this->routes as $route) {
 				// unpack the array with ... and use the variable $route from foreach
 				$routeCollector->addRoute(...$route);

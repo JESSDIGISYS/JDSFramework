@@ -10,7 +10,7 @@ use JDS\Exceptions\HttpException;
 use Psr\Container\ContainerInterface;
 
 /**
- * Core of the application
+ * Core of the framework
  * 
  * its primary responsibility is to
  * receive a request and output a response
@@ -20,11 +20,12 @@ use Psr\Container\ContainerInterface;
 class Kernel
 {
 
+	private string $appEnv = 'dev';
+
 	public function __construct(
 		private RouterInterface $router,
 		private ContainerInterface $container
-		)
-	{
+	) {
 	}
 
 	/**
@@ -35,18 +36,38 @@ class Kernel
 	 */
 	public function handle(Request $request): Response
 	{
-
 		try {
+			throw new Exception('Kernel exception');
+			
 			[$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
 
 			$response = call_user_func_array($routeHandler, $vars);
-			
-		} catch (HttpException $exception) {
-			$response = new Response($exception->getMessage(), $exception->getStatusCode());
 		} catch (Exception $exception) {
-			$response = new Response($exception->getMessage(), 500);
+			$response = $this->createExceptionResponse($exception);
 		}
 
 		return $response;
+	}
+
+	/**
+	 * this will check: are we in development or production mode
+	 *
+	 * so we can handle what the user will see and provide a better
+	 *
+	 * ability to help in development
+
+	 * @throws Exception $exception 
+	 * 
+	 */
+	private function createExceptionResponse(Exception $exception): Response
+	{
+		if (in_array($this->appEnv, ['dev', 'test'])) {
+			throw $exception;
+		}
+
+		if ($exception instanceof HttpException) {
+			return new Response($exception->getMessage(), $exception->getStatusCode());
+		}
+		return new Response('Server error', Response::HTTP_INTERNAL_SERVER_ERROR);
 	}
 }
