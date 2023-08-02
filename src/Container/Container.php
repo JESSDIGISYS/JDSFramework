@@ -7,6 +7,14 @@ use ReflectionParameter;
 use Psr\Container\ContainerInterface;
 use JDS\Exceptions\ContainerException;
 
+/**
+ * Learning how containers work and 
+ * how autowiring is handled
+ * 
+ * This is just for instructional use and has 
+ * been abandoned
+ * @package JDS\Container
+ */
 class Container implements ContainerInterface
 {
 
