@@ -20,7 +20,7 @@ use Psr\Container\ContainerInterface;
 class Kernel
 {
 
-	private string $appEnv = 'dev';
+	private string $appEnv = 'prod';
 
 	public function __construct(
 		private RouterInterface $router,
@@ -38,7 +38,7 @@ class Kernel
 	{
 		try {
 			throw new Exception('Kernel exception');
-			
+
 			[$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
 
 			$response = call_user_func_array($routeHandler, $vars);
