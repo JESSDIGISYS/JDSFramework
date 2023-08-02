@@ -23,8 +23,9 @@ abstract class AbstractController
 		$this->container = $container;
 	}
 
-	public function render(string $template, array $parameters = [], ?Response $response = null) : Response
+	public function render(string $template, array $parameters = [], Response $response = null) : Response
 	{
+		dd($this->container);
 		$content = $this->container->get('twig')->render($template, $parameters);
 
 		$response ??= new Response();
