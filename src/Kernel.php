@@ -20,12 +20,13 @@ use Psr\Container\ContainerInterface;
 class Kernel
 {
 
-	private string $appEnv = 'prod';
+	private string $appEnv;
 
 	public function __construct(
 		private RouterInterface $router,
 		private ContainerInterface $container
 	) {
+		$this->appEnv = $this->container->get('APP_ENV');
 	}
 
 	/**
