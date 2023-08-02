@@ -5,7 +5,7 @@ namespace JDS;
 use Exception;
 use JDS\Http\Request;
 use JDS\Http\Response;
-use JDS\Routing\Router;
+use JDS\Routing\RouterInterface;
 use JDS\Exceptions\HttpException;
 
 /**
@@ -19,7 +19,7 @@ use JDS\Exceptions\HttpException;
 class Kernel
 {
 
-	public function __construct(private Router $router)
+	public function __construct(private RouterInterface $router)
 	{
 	}
 
