@@ -8,14 +8,14 @@ use FastRoute\RouteCollector;
 use JDS\Exceptions\HttpException;
 use function FastRoute\simpleDispatcher;
 use JDS\Exceptions\HttpRequestMethodException;
-
+use Psr\Container\ContainerInterface;
 
 class Router implements RouterInterface
 {
 
 	private array $routes;
 
-	public function dispatch(Request $request): array
+	public function dispatch(Request $request, ContainerInterface $container): array
 	{
 
 		$routeInfo = $this->extractRouteInfo($request);
@@ -23,8 +23,10 @@ class Router implements RouterInterface
 		[$handler, $vars] = $routeInfo;
 
 		if (is_array($handler)) {
-			[$controller, $method] = $handler;
-			$handler = [new $controller, $method];
+			[$controllerId, $method] = $handler;
+			$controller = $container->get($controllerId);
+
+			$handler = [$controller, $method];
 		}
 
 		return [$handler, $vars];

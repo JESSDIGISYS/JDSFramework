@@ -7,6 +7,7 @@ use JDS\Http\Request;
 use JDS\Http\Response;
 use JDS\Routing\RouterInterface;
 use JDS\Exceptions\HttpException;
+use Psr\Container\ContainerInterface;
 
 /**
  * Core of the application
@@ -19,7 +20,10 @@ use JDS\Exceptions\HttpException;
 class Kernel
 {
 
-	public function __construct(private RouterInterface $router)
+	public function __construct(
+		private RouterInterface $router,
+		private ContainerInterface $container
+		)
 	{
 	}
 
@@ -33,9 +37,10 @@ class Kernel
 	{
 
 		try {
-			[$routeHandler, $vars] = $this->router->dispatch($request);
+			[$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
 
 			$response = call_user_func_array($routeHandler, $vars);
+			
 		} catch (HttpException $exception) {
 			$response = new Response($exception->getMessage(), $exception->getStatusCode());
 		} catch (Exception $exception) {

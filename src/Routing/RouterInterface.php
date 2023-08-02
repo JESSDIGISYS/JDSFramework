@@ -3,6 +3,7 @@
 namespace JDS\Routing;
 
 use JDS\Http\Request;
+use Psr\Container\ContainerInterface;
 
 /**
  * Router contract - handshake 
@@ -18,7 +19,7 @@ interface RouterInterface
 	 * @param Request $request 
 	 * @return mixed 
 	 */
-	public function dispatch(Request $request);
+	public function dispatch(Request $request, ContainerInterface $container);
 
 	public function setRoutes(array $routes): void;
 }
