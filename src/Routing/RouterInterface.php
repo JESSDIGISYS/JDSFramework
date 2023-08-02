@@ -19,4 +19,6 @@ interface RouterInterface
 	 * @return mixed 
 	 */
 	public function dispatch(Request $request);
+
+	public function setRoutes(array $routes): void;
 }

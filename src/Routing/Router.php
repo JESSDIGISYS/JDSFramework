@@ -13,6 +13,8 @@ use JDS\Exceptions\HttpRequestMethodException;
 class Router implements RouterInterface
 {
 
+	private array $routes;
+
 	public function dispatch(Request $request): array
 	{
 
@@ -34,13 +36,18 @@ class Router implements RouterInterface
 
 	}
 
+	public function setRoutes(array $routes) : void
+	{
+		$this->routes = $routes;
+	}
+
 	private function extractRouteInfo(Request $request): array
 	{
 		// ***** Create a dispatcher *****
 		$dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
 
-			$routes = include BASE_PATH . '/routes/web.php';
-			foreach ($routes as $route) {
+			
+			foreach ($this->routes as $route) {
 				// unpack the array with ... and use the variable $route from foreach
 				$routeCollector->addRoute(...$route);
 			}
