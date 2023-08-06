@@ -2,6 +2,7 @@
 
 namespace JDS\Console;
 
+use JDS\Console\Command\CommandInterface;
 use Psr\Container\ContainerInterface;
 
 final class Kernel {
@@ -42,12 +43,16 @@ final class Kernel {
 
 			// get the Command class name..using psr4 this will be same as filename
 			$command = $namespace.pathinfo($commandFile, PATHINFO_FILENAME);
-			dd($command);
 			// if it is a subclass of CommandInterface
+			if (is_subclass_of($command, CommandInterface::class))
+			{
 
 				// add to the container, using the name as the ID e.g. $container->add('database:migrations:migrate', MigrateDatabase::class)
-
+				$commandName = (new \ReflectionClass($command))->getProperty('name')->getDefaultValue();
+				dd($commandName);
+			}
 		}
+		
 		
 		// === register all user-defined commands (@todo) ===
 
