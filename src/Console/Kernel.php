@@ -21,7 +21,7 @@ final class Kernel {
 
 		// === register All built-in Commands ===
 		// get all files in the Commands dir
-		$commandFiles = scandir(__DIR__ . '/Command');
+		$commandFiles = new \DirectoryIterator(__DIR__ . '/Command');
 		dd($commandFiles);
 		
 		// loop over all files in the commands folder
