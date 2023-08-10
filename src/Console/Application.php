@@ -30,12 +30,25 @@ class Application
 
 		// parse variables to obtain options and args
 		$args = array_slice($argv, 2);
-		dd($args);
-		
+		$options = $this->parseOptions($args);
+
 		// execute the command, returning the status code
 		$status = $command->execute();
 		
 		// return the status code
 		return $status;
+	}
+
+	private function parseOptions(array $args) : array
+	{
+		$options = [];
+
+		foreach ($args as $arg) {
+			if (str_starts_with($arg, '--')) {
+				// this is an option
+				dd(substr($arg, 2));
+
+			}
+		}
 	}
 }
