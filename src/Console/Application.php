@@ -33,7 +33,7 @@ class Application
 		$options = $this->parseOptions($args);
 
 		// execute the command, returning the status code
-		$status = $command->execute();
+		$status = $command->execute($options);
 		
 		// return the status code
 		return $status;
@@ -51,6 +51,6 @@ class Application
 			
 			}
 		}
-		dd($options);
+		return $options;
 	}
 }
