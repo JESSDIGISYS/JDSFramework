@@ -44,7 +44,7 @@ final class Kernel {
 
 			// get the Command class name..using psr4 this will be same as filename
 			$command = $namespace.pathinfo($commandFile, PATHINFO_FILENAME);
-			if (in_array($command, ['CommandInterface'])) {
+			if (str_contains($command, 'CommandInterface')) {
 				continue;
 			}
 			dd($command);
