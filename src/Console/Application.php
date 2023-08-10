@@ -27,13 +27,13 @@ class Application
 		}
 		// use command name to obtain a command object from the container
 		$command = $this->container->get($commandName);
-		dd($command);
-		
+
 		// parse variables to obtain options and args
 
 		// execute the command, returning the status code
-
+		$status = $command->execute();
+		dd($status);
 		// return the status code
-		return 0;
+		return $status;
 	}
 }
