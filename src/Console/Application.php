@@ -29,7 +29,7 @@ class Application
 		$command = $this->container->get($commandName);
 
 		// parse variables to obtain options and args
-
+		dd($argv);
 		// execute the command, returning the status code
 		$status = $command->execute();
 		

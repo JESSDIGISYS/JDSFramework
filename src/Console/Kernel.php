@@ -24,9 +24,9 @@ final class Kernel {
 
 		// run the console application, returning a status code
 		$status = $this->application->run();
-		dd($status);
+
 		// return the status code
-		return 0;
+		return $status;
 	}
 
 	private function registerCommands(): void
