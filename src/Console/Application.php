@@ -9,7 +9,8 @@ class Application
 	{
 		// use environment variables to obtain the command name
 		$argv = $_SERVER['argv'];
-		dd($argv);
+		$commandName = $argv[1] ?? null;
+		dd($commandName);
 
 		// throw an exception if no command name is provided
 
