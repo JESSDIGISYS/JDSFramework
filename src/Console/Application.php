@@ -46,8 +46,8 @@ class Application
 		foreach ($args as $arg) {
 			if (str_starts_with($arg, '--')) {
 				// this is an option
-				dd(substr($arg, 2));
-
+				$option = explode('=', substr($arg, 2));
+				dd($option);
 			}
 		}
 	}
