@@ -48,8 +48,9 @@ class Application
 				// this is an option
 				$option = explode('=', substr($arg, 2));
 				$options[$option[0]] = $option[1] ?? true;
-				dd($options);
+			
 			}
 		}
+		dd($options);
 	}
 }
