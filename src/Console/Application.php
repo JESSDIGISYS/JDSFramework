@@ -32,7 +32,7 @@ class Application
 
 		// execute the command, returning the status code
 		$status = $command->execute();
-		dd($status);
+		
 		// return the status code
 		return $status;
 	}
