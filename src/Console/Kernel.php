@@ -30,7 +30,7 @@ final class Kernel {
 		// === register All built-in Commands ===
 		// get all files in the Commands dir
 		$commandFiles = new \DirectoryIterator(__DIR__ . '/Command');
-
+		dd($commandFiles);
 		$namespace = $this->container->get('base-commands-namespace');
 				
 		// loop over all files in the commands folder
@@ -49,7 +49,7 @@ final class Kernel {
 
 				// add to the container, using the name as the ID e.g. $container->add('database:migrations:migrate', MigrateDatabase::class)
 				$commandName = (new \ReflectionClass($command))->getProperty('name')->getDefaultValue();
-				dd($commandName);
+				
 			}
 		}
 		
