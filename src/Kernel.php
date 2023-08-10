@@ -2,10 +2,10 @@
 
 namespace JDS;
 
-use Doctrine\DBAL\Connection;
 use Exception;
 use JDS\Http\Request;
 use JDS\Http\Response;
+use Doctrine\DBAL\Connection;
 use JDS\Routing\RouterInterface;
 use JDS\Exceptions\HttpException;
 use Psr\Container\ContainerInterface;
@@ -39,6 +39,8 @@ class Kernel
 	public function handle(Request $request): Response
 	{
 		try {
+
+			dd($this->container->get(Connection::class));
 			
 			[$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
 
