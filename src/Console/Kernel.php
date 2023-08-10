@@ -2,12 +2,16 @@
 
 namespace JDS\Console;
 
-use JDS\Console\Command\CommandInterface;
+use JDS\Console\Application;
 use Psr\Container\ContainerInterface;
+use JDS\Console\Command\CommandInterface;
 
 final class Kernel {
 
-		public function __construct(private ContainerInterface $container)
+		public function __construct(
+			private ContainerInterface $container,
+			private Application $application
+			)
 		{
 
 		}
@@ -19,6 +23,7 @@ final class Kernel {
 		$this->registerCommands();
 
 		// run the console application, returning a status code
+		$status = $this->application->run();
 
 		// return the status code
 		return 0;
@@ -53,8 +58,8 @@ final class Kernel {
 				$this->container->add($commandName, $command);
 			}
 		}
-		dd($this->container);
 		
+
 		
 		// === register all user-defined commands (@todo) ===
 
