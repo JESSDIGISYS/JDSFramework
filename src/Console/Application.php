@@ -3,9 +3,17 @@
 namespace JDS\Console;
 
 use JDS\Exceptions\ConsoleException;
+use Psr\Container\ContainerInterface;
 
 class Application
 {
+
+	public function __construct(
+		private ContainerInterface $container
+	)
+	{
+
+	}
 
 	public function run(): int
 	{
@@ -18,7 +26,9 @@ class Application
 			throw new ConsoleException('A command name must be provided');
 		}
 		// use command name to obtain a command object from the container
-
+		$command = $this->container->get($commandName);
+		dd($command);
+		
 		// parse variables to obtain options and args
 
 		// execute the command, returning the status code
