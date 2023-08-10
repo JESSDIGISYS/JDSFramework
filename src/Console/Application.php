@@ -47,7 +47,8 @@ class Application
 			if (str_starts_with($arg, '--')) {
 				// this is an option
 				$option = explode('=', substr($arg, 2));
-				dd($option);
+				$options[$option[0]] = $option[1] ?? true;
+				dd($options);
 			}
 		}
 	}
