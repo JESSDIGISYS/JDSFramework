@@ -55,6 +55,8 @@ class MigrateDatabase implements CommandInterface
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
 			$this->connection->executeQuery($sqlArray[0]);
 			echo 'Migrations table created' . PHP_EOL;
+		} else {
+			echo 'Migration table already exists' . PHP_EOL;
 		}
 
 	}
