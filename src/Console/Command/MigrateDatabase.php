@@ -34,10 +34,22 @@ class MigrateDatabase implements CommandInterface
 
 			// get the $migrationFiles from the migrations folder
 			$migrationFiles = $this->getMigrationFiles();
+
 			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
+			$migrationsToApply = array_diff($migrationFiles, $appliedMigrations);
 
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
+			foreach ($migrationsToApply as $migration) {
+				
+				// require the object
+				$migrationObject = require $this->migrationsPath . '/' . $migration;
+				dd($migrationObject);
+				
+				// call up method
 
+				// add migration to database
+
+			}
 			// add migration to database
 
 			// execute the sql query
@@ -82,8 +94,15 @@ class MigrateDatabase implements CommandInterface
 
 	private function getMigrationFiles(): array
 	{
-		$migrationFiles = array_diff(scandir($this->migrationsPath), ['..', '.']);
-		dd($migrationFiles);
+		$filteredFiles = array_diff(scandir($this->migrationsPath), ['..', '.']);
+
+		// Garys way: 
+		// $migrationFiles = scandir($this->migrationsPath);
+		// $filteredFiles = array_filter($migrationFiles, function($file) { 
+		// 	return !in_array($file, ['.', '..']); 
+		// });
+		
+		return $filteredFiles;
 		
 	}
 }
