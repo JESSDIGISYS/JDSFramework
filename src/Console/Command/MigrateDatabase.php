@@ -36,10 +36,8 @@ class MigrateDatabase implements CommandInterface
 			$migrationFiles = $this->getMigrationFiles();
 
 			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
-			$migrationsToApply = array_diff($appliedMigrations, $migrationFiles);
-			dd($migrationsToApply);
-			
 			$migrationsToApply = array_diff($migrationFiles, $appliedMigrations);
+			dd($migrationsToApply);
 
 			$schema = new Schema();
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
