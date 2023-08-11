@@ -36,21 +36,25 @@ class MigrateDatabase implements CommandInterface
 			$migrationFiles = $this->getMigrationFiles();
 
 			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
+			$migrationsToApply = array_diff($appliedMigrations, $migrationFiles);
+			dd($migrationsToApply);
+			
 			$migrationsToApply = array_diff($migrationFiles, $appliedMigrations);
 
+			$schema = new Schema();
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($migrationsToApply as $migration) {
 				
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
-				dd($migrationObject);
 				
 				// call up method
+				$migrationObject->up($schema);
 
 				// add migration to database
+				$this->insertMigration($migration);
 
 			}
-			// add migration to database
 
 			// execute the sql query
 			$this->connection->commit();
@@ -65,6 +69,36 @@ class MigrateDatabase implements CommandInterface
 
 			throw $throwable;
 		}
+	}
+
+	public function rollBack(array $params = []): int
+	{
+		try {
+			// create a migrations table sql if table not already in existence
+			$this->createMigrationsTable();
+
+			// start a transaction
+			$this->connection->beginTransaction();
+
+			// get $appliedMigrations which are already in the database.migrations table
+			$appliedMigrations = $this->getAppliedMigrations();
+
+			// get the $migrationFiles from the migrations folder
+			$migrationFiles = $this->getMigrationFiles();
+
+			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
+			$migrationsToApply = array_diff($appliedMigrations, $migrationFiles);
+
+
+			// execute the sql query
+			$this->connection->commit();
+
+		} catch (Throwable $throwable) {
+			$this->connection->rollBack();
+
+			throw $throwable;
+		}
+		return 0;
 	}
 
 	private function createMigrationsTable(): void
@@ -103,6 +137,27 @@ class MigrateDatabase implements CommandInterface
 		// });
 		
 		return $filteredFiles;
-		
+	}
+
+	private function insertMigration(string $migration): void
+	{
+		$sql = "INSERT INTO migrations (migraiton) VALUES (?)";
+
+		$stmt = $this->connection->prepare($sql);
+
+		$stmt->bindValue(1, $migration);
+
+		$stmt->executeStatement();
+	}
+
+	private function removeMigration(string $migration): void
+	{
+		$sql = "DELETE FROM migrations WHERE migration = ?";
+
+		$stmt = $this->connection->prepare($sql);
+
+		$stmt->bindValue(1, $migration);
+
+		$stmt->executeStatement();
 	}
 }
