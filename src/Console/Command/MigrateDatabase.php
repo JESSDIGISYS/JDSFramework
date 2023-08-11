@@ -10,7 +10,10 @@ use Throwable;
 class MigrateDatabase implements CommandInterface
 {
 
-	public function __construct(private Connection $connection)
+	public function __construct(
+		private Connection $connection,
+		private string $migrationsPath
+		)
 	{
 	}
 
@@ -28,8 +31,9 @@ class MigrateDatabase implements CommandInterface
 
 			// get $appliedMigrations which are already in the database.migrations table
 			$appliedMigrations = $this->getAppliedMigrations();
-			// get the $migrationFiles from the migrations folder
 
+			// get the $migrationFiles from the migrations folder
+			$migrationFiles = $this->getMigrationFiles();
 			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
 
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
@@ -72,7 +76,13 @@ class MigrateDatabase implements CommandInterface
 	{
 		$sql = "SELECT migration FROM migrations";
 		$appliedMigrations = $this->connection->executeQuery($sql)->fetchFirstColumn();
-		dd($appliedMigrations);
+		
 		return $appliedMigrations;
+	}
+
+	private function getMigrationFiles(): array
+	{
+		$migrationFiles = scandir($this->migrationsPath);
+		dd($migrationFiles);
 	}
 }
