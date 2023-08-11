@@ -82,7 +82,8 @@ class MigrateDatabase implements CommandInterface
 
 	private function getMigrationFiles(): array
 	{
-		$migrationFiles = scandir($this->migrationsPath);
+		$migrationFiles = array_diff(scandir($this->migrationsPath), ['..', '.']);
 		dd($migrationFiles);
+		
 	}
 }
