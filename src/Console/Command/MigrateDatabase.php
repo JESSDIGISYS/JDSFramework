@@ -9,16 +9,15 @@ use Doctrine\DBAL\Schema\Schema;
 class MigrateDatabase implements CommandInterface
 {
 
-	public function __construct()
+	public function __construct(private Connection $connection)
 	{
 	}
-// private Connection $connection
+	
 	private string $name = 'database:migrations:migrate';
 
 	public function execute(array $params = []): int
 	{
 
-		dd('here');
 		// create a migrations table sql if table not already in existence
 		$this->createMigrationsTable();
 
