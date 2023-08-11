@@ -12,7 +12,7 @@ class MigrateDatabase implements CommandInterface
 	public function __construct(private Connection $connection)
 	{
 	}
-	
+
 	private string $name = 'database:migrations:migrate';
 
 	public function execute(array $params = []): int
@@ -52,9 +52,10 @@ class MigrateDatabase implements CommandInterface
 			$table->addColumn('migration', Types::STRING);
 			$table->addColumn('created_at', Types::DATETIME_IMMUTABLE, ['default' => 'CURRENT_TIMESTAMP']);
 			$table->setPrimaryKey(['id']);
+			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
+			$this->connection->executeQuery($sqlArray[0]);
+			echo 'Migrations table created' . PHP_EOL;
 		}
 
-		$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
-		dd($sqlArray);
 	}
 }
