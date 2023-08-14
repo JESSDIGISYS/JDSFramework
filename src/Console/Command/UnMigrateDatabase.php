@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Schema\Schema;
 use Throwable;
 
-class MigrateDatabase implements CommandInterface
+class UnMigrateDatabase implements CommandInterface
 {
 
 	public function __construct(
@@ -32,21 +32,12 @@ class MigrateDatabase implements CommandInterface
 			// get $appliedMigrations which are already in the database.migrations table
 			$appliedMigrations = $this->getAppliedMigrations();
 
-			// get the $migrationFiles from the migrations folder
-			$migrationFiles = $this->getMigrationFiles();
-
-			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
-			$migrationsToApply = array_diff($migrationFiles, $appliedMigrations);
-
 			// create new schema to pass to migration files 
 			$schema = new Schema();
 			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
-			foreach ($migrationsToApply as $migration) {
-				dd(strpos($migration, '.php'));
+			foreach ($appliedMigrations as $migration) {
 				
-				$ext = substr($migration, strpos($migration, '.php'));
-
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
 				
