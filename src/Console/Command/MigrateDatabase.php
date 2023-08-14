@@ -62,7 +62,7 @@ class MigrateDatabase implements CommandInterface
 				if ($loops == 1){
 					dd($sql);
 				}
-				if ($lopps == 0) {
+				if ($loops == 0) {
 					echo $sql;
 				}
 				$this->connection->executeQuery($sql);				
