@@ -146,7 +146,7 @@ class MigrateDatabase implements CommandInterface
 
 	private function insertMigration(string $migration): void
 	{
-		$sql = "INSERT INTO migrations (migraiton) VALUES (?)";
+		$sql = "INSERT INTO migrations (migration) VALUES (?)";
 
 		$stmt = $this->connection->prepare($sql);
 
