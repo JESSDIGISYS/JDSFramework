@@ -37,9 +37,10 @@ class MigrateDatabase implements CommandInterface
 
 			// get the migrations to apply. i.e. they are in $migrationFiles but not in $appliedMigrations
 			$migrationsToApply = array_diff($migrationFiles, $appliedMigrations);
-			dd($migrationsToApply);
 
+			// create new schema to pass to migration files 
 			$schema = new Schema();
+			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($migrationsToApply as $migration) {
 				
@@ -55,6 +56,12 @@ class MigrateDatabase implements CommandInterface
 			}
 
 			// execute the sql query
+			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
+			dd($sqlArray);
+			foreach ($sqlArray as $sql) {
+				$this->connection->executeQuery($sql);				
+			}
+
 			$this->connection->commit();
 
 
