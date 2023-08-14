@@ -3,13 +3,13 @@
 namespace JDS\Console;
 
 use JDS\Console\Application;
-use League\Container\Container;
+use Psr\Container\ContainerInterface;
 use JDS\Console\Command\CommandInterface;
 
 final class Kernel {
 
 		public function __construct(
-			private Container $container,
+			private ContainerInterface $container,
 			private Application $application
 			)
 		{
