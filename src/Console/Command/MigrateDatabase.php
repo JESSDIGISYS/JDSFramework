@@ -54,7 +54,7 @@ class MigrateDatabase implements CommandInterface
 				$this->insertMigration($migration);
 
 			}
-
+			dd($this->connection->getDatabasePlatform());
 			// execute the sql query
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
 			foreach ($sqlArray as $sql) {
@@ -62,10 +62,6 @@ class MigrateDatabase implements CommandInterface
 			}
 
 			$this->connection->commit();
-
-
-
-			echo 'Executing MigrateDatabase command' . PHP_EOL;
 
 			return 0;
 		} catch (Throwable $throwable) {
