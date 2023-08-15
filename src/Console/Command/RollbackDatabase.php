@@ -10,11 +10,9 @@ use Throwable;
 class RollbackDatabase extends AbstractCommand
 {
 
-	public function __construct(
-		private Connection $connection,
-		private string $migrationsPath
-		)
+	public function __construct(private Connection $connection, private string $migrationsPath)
 	{
+		parent::__construct($connection, $migrationsPath);
 	}
 
 	private string $name = 'database:migrations:rollback';

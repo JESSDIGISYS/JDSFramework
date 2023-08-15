@@ -10,8 +10,8 @@ abstract class AbstractCommand implements CommandInterface
 {
 
 	public function __construct(
-		private Connection $connection,
-		private string $migrationsPath
+		protected Connection $connection,
+		protected string $migrationsPath
 	) {
 	}
 

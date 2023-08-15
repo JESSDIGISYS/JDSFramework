@@ -4,7 +4,6 @@ namespace JDS\Console\Command;
 
 use Throwable;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Schema\Schema;
 use JDS\Console\Command\AbstractCommand;
 
@@ -16,6 +15,7 @@ class MigrateDatabase extends AbstractCommand
 		private string $migrationsPath
 		)
 	{
+		parent::__construct($connection, $migrationsPath);
 	}
 
 	private string $name = 'database:migrations:migrate';
