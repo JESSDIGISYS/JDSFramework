@@ -36,7 +36,7 @@ final class Kernel {
 		// === register All built-in Commands ===
 		// get all files in the Commands dir
 		$commandFiles = new \DirectoryIterator(__DIR__ . '/Command');
-		
+		dd($commandFiles);
 		// get the Command class name ... using psr4 ... this will be same as filename
 		$namespace = $this->container->get('base-commands-namespace');
 				
