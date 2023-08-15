@@ -61,9 +61,6 @@ final class Kernel {
 				$this->container->add($commandName, $command);
 			}
 		}
-		dd($this->container);
-		
-
 		
 		// === register all user-defined commands (@todo) ===
 
