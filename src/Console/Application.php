@@ -2,7 +2,7 @@
 
 namespace JDS\Console;
 
-use JDS\Container\Container;
+use League\Container\Container;
 use JDS\Exceptions\ConsoleException;
 
 
