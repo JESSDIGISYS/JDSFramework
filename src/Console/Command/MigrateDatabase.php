@@ -2,12 +2,13 @@
 
 namespace JDS\Console\Command;
 
+use Throwable;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Schema\Schema;
-use Throwable;
+use JDS\Console\Command\AbstractCommand;
 
-class MigrateDatabase implements CommandInterface
+class MigrateDatabase extends AbstractCommand
 {
 
 	public function __construct(
@@ -71,44 +72,6 @@ class MigrateDatabase implements CommandInterface
 
 			throw $throwable;
 		}
-	}
-
-	private function createMigrationsTable(): void
-	{
-		$schemaManager = $this->connection->createSchemaManager();
-
-		if (!$schemaManager->tablesExist('migrations')) {
-			$schema = new Schema();
-			$table = $schema->createTable('migrations');
-			$table->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
-			$table->addColumn('migration', Types::STRING);
-			$table->addColumn('created_at', Types::DATETIME_IMMUTABLE, ['default' => 'CURRENT_TIMESTAMP']);
-			$table->setPrimaryKey(['id']);
-			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
-			$this->connection->executeQuery($sqlArray[0]);
-			echo 'Migrations table created' . PHP_EOL;
-		}
-	}
-
-	private function getAppliedMigrations(): array
-	{
-		$sql = "SELECT migration FROM migrations";
-		$appliedMigrations = $this->connection->executeQuery($sql)->fetchFirstColumn();
-		
-		return $appliedMigrations;
-	}
-
-	private function getMigrationFiles(): array
-	{
-		$filteredFiles = array_diff(scandir($this->migrationsPath), ['..', '.']);
-
-		// Garys way: 
-		// $migrationFiles = scandir($this->migrationsPath);
-		// $filteredFiles = array_filter($migrationFiles, function($file) { 
-		// 	return !in_array($file, ['.', '..']); 
-		// });
-		
-		return $filteredFiles;
 	}
 
 	private function insertMigration(string $migration): void

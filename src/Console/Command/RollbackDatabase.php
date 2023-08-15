@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Schema\Schema;
 use Throwable;
 
-class RollbackDatabase implements CommandInterface
+class RollbackDatabase extends AbstractCommand
 {
 
 	public function __construct(
@@ -29,7 +29,7 @@ class RollbackDatabase implements CommandInterface
 			$this->connection->beginTransaction();
 
 			// get $appliedMigrations which are already in the database.migrations table
-			$appliedMigrations = $this->getAppliedMigrations();
+			$appliedMigrations = $this->getMigrations();
 
 			// create new schema to pass to migration files 
 			$schema = new Schema();
@@ -66,45 +66,6 @@ class RollbackDatabase implements CommandInterface
 		}
 	}
 
-	private function createMigrationsTable(): void
-	{
-		$schemaManager = $this->connection->createSchemaManager();
-
-		if (!$schemaManager->tablesExist('migrations')) {
-			$schema = new Schema();
-			$table = $schema->createTable('migrations');
-			$table->addColumn('id', Types::INTEGER, ['unsigned' => true, 'autoincrement' => true]);
-			$table->addColumn('migration', Types::STRING);
-			$table->addColumn('created_at', Types::DATETIME_IMMUTABLE, ['default' => 'CURRENT_TIMESTAMP']);
-			$table->setPrimaryKey(['id']);
-			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
-			$this->connection->executeQuery($sqlArray[0]);
-			echo 'Migrations table created' . PHP_EOL;
-		}
-	}
-
-	private function getAppliedMigrations(): array
-	{
-		$sql = "SELECT migration FROM migrations";
-		$appliedMigrations = $this->connection->executeQuery($sql)->fetchFirstColumn();
-		
-		return $appliedMigrations;
-	}
-
-	private function getMigrationFiles(): array
-	{
-		$filteredFiles = array_diff(scandir($this->migrationsPath), ['..', '.']);
-
-		// Garys way: 
-		// $migrationFiles = scandir($this->migrationsPath);
-		// $filteredFiles = array_filter($migrationFiles, function($file) { 
-		// 	return !in_array($file, ['.', '..']); 
-		// });
-		
-		return $filteredFiles;
-	}
-
-
 	private function removeMigration(string $migration): void
 	{
 		$sql = "DELETE FROM migrations WHERE migration = ?";
@@ -115,4 +76,13 @@ class RollbackDatabase implements CommandInterface
 
 		$stmt->executeStatement();
 	}
+
+	private function getMigrations(): array
+	{
+		$sql = "SELECT migration FROM migrations ORDER BY migration DESC";
+		$appliedMigrations = $this->connection->executeQuery($sql)->fetchFirstColumn();
+
+		return $appliedMigrations;
+	}
+
 }
