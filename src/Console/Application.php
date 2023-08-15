@@ -5,6 +5,7 @@ namespace JDS\Console;
 use JDS\Container\Container;
 use JDS\Exceptions\ConsoleException;
 
+
 class Application
 {
 
