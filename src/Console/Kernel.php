@@ -3,13 +3,13 @@
 namespace JDS\Console;
 
 use JDS\Console\Application;
-use Psr\Container\ContainerInterface;
 use JDS\Console\Command\CommandInterface;
+use JDS\Container\Container;
 
 final class Kernel {
 
 		public function __construct(
-			private ContainerInterface $container,
+			private Container $container,
 			private Application $application
 			)
 		{
@@ -36,6 +36,7 @@ final class Kernel {
 		// get all files in the Commands dir
 		$commandFiles = new \DirectoryIterator(__DIR__ . '/Command');
 		
+		// get the Command class name ... using psr4 ... this will be same as filename
 		$namespace = $this->container->get('base-commands-namespace');
 				
 		// loop over all files in the commands folder
@@ -49,6 +50,7 @@ final class Kernel {
 
 			// get the Command class name..using psr4 this will be same as filename
 			$command = $namespace.pathinfo($commandFile, PATHINFO_FILENAME);
+
 			// if it is a subclass of CommandInterface
 			if (is_subclass_of($command, CommandInterface::class))
 			{

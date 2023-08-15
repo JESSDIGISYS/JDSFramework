@@ -2,14 +2,14 @@
 
 namespace JDS\Console;
 
+use JDS\Container\Container;
 use JDS\Exceptions\ConsoleException;
-use Psr\Container\ContainerInterface;
 
 class Application
 {
 
 	public function __construct(
-		private ContainerInterface $container
+		private Container $container
 	)
 	{
 

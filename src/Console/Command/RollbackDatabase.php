@@ -17,7 +17,7 @@ class UnMigrateDatabase implements CommandInterface
 	{
 	}
 
-	private string $name = 'database:migrations:migrate';
+	private string $name = 'database:migrations:rollback';
 
 	public function execute(array $params = []): int
 	{
@@ -38,7 +38,7 @@ class UnMigrateDatabase implements CommandInterface
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($appliedMigrations as $migration) {
 				dd(strpos($migration, '.php'));
-				
+
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
 				
