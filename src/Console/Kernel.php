@@ -50,7 +50,8 @@ final class Kernel {
 
 			// get the Command class name..using psr4 this will be same as filename
 			$command = $namespace.pathinfo($commandFile, PATHINFO_FILENAME);
-		dd($command);
+			
+		dd(str_contains($command, 'AbstractCommand') ? 'Contains AbstractCommand' : 'Does Not Contain AbstractCommand');
 			
 			// if it is a subclass of CommandInterface
 			if (is_subclass_of($command, CommandInterface::class))
