@@ -42,7 +42,6 @@ class RollbackDatabase extends AbstractCommand
 				}
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
-				dd($schema);
 				// call up method
 				$migrationObject->down($schema);
 

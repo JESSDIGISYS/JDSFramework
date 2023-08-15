@@ -57,7 +57,6 @@ class MigrateDatabase extends AbstractCommand
 				$this->insertMigration($migration);
 
 			}
-			dd($schema);
 			// execute the sql query
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
 			foreach ($sqlArray as $sql) {
