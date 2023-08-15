@@ -59,6 +59,7 @@ final class Kernel {
 				// add to the container, using the name as the ID e.g. $container->add('database:migrations:migrate', MigrateDatabase::class)
 				$commandName = (new \ReflectionClass($command))->getProperty('name')->getDefaultValue();
 				$this->container->add($commandName, $command);
+				dd($this->container);
 			}
 		}
 		
