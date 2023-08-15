@@ -21,7 +21,7 @@ class RollbackDatabase implements CommandInterface
 
 	public function execute(array $params = []): int
 	{
-
+		dd('It is inside rollback execute');
 		try {
 			// create a migrations table sql if table not already in existence
 			$this->createMigrationsTable();
