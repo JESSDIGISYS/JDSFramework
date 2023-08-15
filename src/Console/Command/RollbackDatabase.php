@@ -36,7 +36,7 @@ class RollbackDatabase implements CommandInterface
 			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($appliedMigrations as $migration) {
-				dd(substr($migration, 0, strpos($migration, '.php')));
+				dd(substr($migration, strpos($migration, '.php')));
 
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
