@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Schema\Schema;
 use Throwable;
 
-class UnMigrateDatabase implements CommandInterface
+class RollbackDatabase implements CommandInterface
 {
 
 	public function __construct(
