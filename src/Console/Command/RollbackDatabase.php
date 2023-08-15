@@ -36,20 +36,22 @@ class RollbackDatabase implements CommandInterface
 			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($appliedMigrations as $migration) {
-				dd(substr($migration, strpos($migration, '.php')));
-
+				if (strpos($migration, '.php') === false) {
+					$migration .= '.php';
+				}
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
 				
 				// call up method
-				$migrationObject->up($schema);
+				$migrationObject->down($schema);
 
 				// add migration to database
-				$this->insertMigration($migration);
+				$this->removeMigration($migration);
 
 			}
 			// execute the sql query
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
+			dd($sqlArray);
 			foreach ($sqlArray as $sql) {
 				$this->connection->executeQuery($sql);				
 			}
@@ -102,16 +104,6 @@ class RollbackDatabase implements CommandInterface
 		return $filteredFiles;
 	}
 
-	private function insertMigration(string $migration): void
-	{
-		$sql = "INSERT INTO migrations (migration) VALUES (?)";
-
-		$stmt = $this->connection->prepare($sql);
-
-		$stmt->bindValue(1, $migration);
-
-		$stmt->executeStatement();
-	}
 
 	private function removeMigration(string $migration): void
 	{

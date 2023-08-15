@@ -43,6 +43,9 @@ class MigrateDatabase implements CommandInterface
 			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($migrationsToApply as $migration) {
+				if (strpos($migration, '.php') === false) {
+					$migration .= '.php';
+				}
 				
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
@@ -119,14 +122,4 @@ class MigrateDatabase implements CommandInterface
 		$stmt->executeStatement();
 	}
 
-	private function removeMigration(string $migration): void
-	{
-		$sql = "DELETE FROM migrations WHERE migration = ?";
-
-		$stmt = $this->connection->prepare($sql);
-
-		$stmt->bindValue(1, $migration);
-
-		$stmt->executeStatement();
-	}
 }
