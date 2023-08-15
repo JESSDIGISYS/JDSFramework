@@ -41,7 +41,6 @@ class MigrateDatabase extends AbstractCommand
 
 			// create new schema to pass to migration files 
 			$schema = new Schema();
-			dd($schema);
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($migrationsToApply as $migration) {
 				if (strpos($migration, '.php') === false) {
@@ -58,6 +57,7 @@ class MigrateDatabase extends AbstractCommand
 				$this->insertMigration($migration);
 
 			}
+			dd($schema);
 			// execute the sql query
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
 			foreach ($sqlArray as $sql) {
