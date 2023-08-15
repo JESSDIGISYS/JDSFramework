@@ -41,7 +41,7 @@ class MigrateDatabase extends AbstractCommand
 
 			// create new schema to pass to migration files 
 			$schema = new Schema();
-			
+			dd($schema);
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($migrationsToApply as $migration) {
 				if (strpos($migration, '.php') === false) {
