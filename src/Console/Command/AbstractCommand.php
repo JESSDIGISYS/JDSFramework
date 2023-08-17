@@ -18,7 +18,7 @@ abstract class AbstractCommand implements CommandInterface
 	protected function createMigrationsTable(): void
 	{
 		$schemaManager = $this->connection->createSchemaManager();
-		dd(!$schemaManager->tablesExist('migrations'));
+	
 		if (!$schemaManager->tablesExist('migrations')) {
 			$schema = new Schema();
 			$table = $schema->createTable('migrations');

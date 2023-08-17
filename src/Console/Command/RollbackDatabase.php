@@ -25,7 +25,7 @@ class RollbackDatabase extends AbstractCommand
 		try {
 			// create a migrations table sql if table not already in existence
 			$this->createMigrationsTable();
-
+			dd('After Migrations Table Create Command');
 			// start a transaction
 			$this->connection->beginTransaction();
 
