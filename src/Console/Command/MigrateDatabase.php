@@ -15,7 +15,7 @@ class MigrateDatabase extends AbstractCommand
 		protected string $migrationsPath
 		)
 	{
-		parent::__construct($connection, $migrationsPath);
+		// parent::__construct($connection, $migrationsPath);
 	}
 
 	private string $name = 'database:migrations:migrate';
