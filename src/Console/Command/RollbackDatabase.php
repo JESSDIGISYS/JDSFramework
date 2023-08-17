@@ -33,8 +33,7 @@ class RollbackDatabase extends AbstractCommand
 			$appliedMigrations = $this->getMigrations();
 
 			// create new schema to pass to migration files 
-			$schema = $this->connection->createSchemaManager();
-
+			$schema = $this->connection->createSchemaManager()->introspectSchema();
 			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($appliedMigrations as $migration) {
