@@ -50,13 +50,13 @@ class RollbackDatabase extends AbstractCommand
 
 			}
 			// execute the sql query
-			// $sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
+			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
 	
-			// foreach ($sqlArray as $sql) {
-			// 	$this->connection->executeQuery($sql);				
-			// }
+			foreach ($sqlArray as $sql) {
+				$this->connection->executeQuery($sql);				
+			}
 
-			// $this->connection->commit();
+			$this->connection->commit();
 
 			return 0;
 		} catch (Throwable $throwable) {
