@@ -3,7 +3,7 @@
 namespace JDS\Console\Command;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Types;
+use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Schema;
 use Throwable;
 
@@ -33,7 +33,8 @@ class RollbackDatabase extends AbstractCommand
 			$appliedMigrations = $this->getMigrations();
 
 			// create new schema to pass to migration files 
-			$schema = new Schema();
+			$schema = $this->connection->createSchemaManager();
+
 			
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($appliedMigrations as $migration) {
@@ -50,13 +51,13 @@ class RollbackDatabase extends AbstractCommand
 
 			}
 			// execute the sql query
-			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
-			dd($sqlArray);
-			foreach ($sqlArray as $sql) {
-				$this->connection->executeQuery($sql);				
-			}
+			// $sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
+	
+			// foreach ($sqlArray as $sql) {
+			// 	$this->connection->executeQuery($sql);				
+			// }
 
-			$this->connection->commit();
+			// $this->connection->commit();
 
 			return 0;
 		} catch (Throwable $throwable) {
