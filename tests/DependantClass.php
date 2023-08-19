@@ -11,7 +11,7 @@ class DependantClass
 	{
 	}
 
-	public function getDependency() : DependancyClass
+	public function getDependency(): DependancyClass
 	{
 		return $this->dependency;
 	}

@@ -2,7 +2,6 @@
 
 namespace JDS\Tests;
 
-class SubDependencyClass 
+class SubDependencyClass
 {
-	
 }

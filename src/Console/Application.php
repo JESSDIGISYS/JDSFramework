@@ -11,9 +11,7 @@ class Application
 
 	public function __construct(
 		private Container $container
-	)
-	{
-
+	) {
 	}
 
 	public function run(): int
@@ -35,12 +33,12 @@ class Application
 
 		// execute the command, returning the status code
 		$status = $command->execute($options);
-		
+
 		// return the status code
 		return $status;
 	}
 
-	private function parseOptions(array $args) : array
+	private function parseOptions(array $args): array
 	{
 		$options = [];
 
@@ -49,7 +47,6 @@ class Application
 				// this is an option
 				$option = explode('=', substr($arg, 2));
 				$options[$option[0]] = $option[1] ?? true;
-			
 			}
 		}
 		return $options;

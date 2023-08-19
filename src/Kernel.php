@@ -39,7 +39,7 @@ class Kernel
 	public function handle(Request $request): Response
 	{
 		try {
-			
+
 			[$routeHandler, $vars] = $this->router->dispatch($request, $this->container);
 
 			$response = call_user_func_array($routeHandler, $vars);

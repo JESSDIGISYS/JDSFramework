@@ -13,8 +13,7 @@ class MigrateDatabase extends AbstractCommand
 	public function __construct(
 		protected Connection $connection,
 		protected string $migrationsPath
-		)
-	{
+	) {
 		// parent::__construct($connection, $migrationsPath);
 	}
 
@@ -46,21 +45,20 @@ class MigrateDatabase extends AbstractCommand
 				if (strpos($migration, '.php') === false) {
 					$migration .= '.php';
 				}
-				
+
 				// require the object
 				$migrationObject = require $this->migrationsPath . '/' . $migration;
-				
+
 				// call up method
 				$migrationObject->up($schema);
 
 				// add migration to database
 				$this->insertMigration($migration);
-
 			}
 			// execute the sql query
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
 			foreach ($sqlArray as $sql) {
-				$this->connection->executeQuery($sql);				
+				$this->connection->executeQuery($sql);
 			}
 
 			$this->connection->commit();
@@ -83,5 +81,4 @@ class MigrateDatabase extends AbstractCommand
 
 		$stmt->executeStatement();
 	}
-
 }

@@ -11,10 +11,9 @@ class RollbackDatabase extends AbstractCommand
 {
 
 	public function __construct(
-		protected Connection $connection, 
+		protected Connection $connection,
 		protected string $migrationsPath
-		)
-	{
+	) {
 		// parent::__construct($connection, $migrationsPath);
 	}
 
@@ -33,7 +32,7 @@ class RollbackDatabase extends AbstractCommand
 
 			// create new schema to pass to migration files 
 			$schema = $this->connection->createSchemaManager()->introspectSchema();
-			
+
 			// create sql for any migrations which have not been run ..i.e. which are not in the database
 			foreach ($appliedMigrations as $migration) {
 				if (strpos($migration, '.php') === false) {
@@ -46,13 +45,12 @@ class RollbackDatabase extends AbstractCommand
 
 				// add migration to database
 				$this->removeMigration($migration);
-
 			}
 			// execute the sql query
 			$sqlArray = $schema->toSql($this->connection->getDatabasePlatform());
-	
+
 			foreach ($sqlArray as $sql) {
-				$this->connection->executeQuery($sql);				
+				$this->connection->executeQuery($sql);
 			}
 
 			$this->connection->commit();
@@ -83,5 +81,4 @@ class RollbackDatabase extends AbstractCommand
 
 		return $appliedMigrations;
 	}
-
 }

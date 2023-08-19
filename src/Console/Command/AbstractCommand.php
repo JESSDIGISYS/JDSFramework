@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\DBAL\Schema\Schema;
 
-abstract class AbstractCommand implements CommandInterface 
+abstract class AbstractCommand implements CommandInterface
 {
 
 	public function __construct(
@@ -18,7 +18,7 @@ abstract class AbstractCommand implements CommandInterface
 	protected function createMigrationsTable(): void
 	{
 		$schemaManager = $this->connection->createSchemaManager();
-	
+
 		if (!$schemaManager->tablesExist('migrations')) {
 			$schema = new Schema();
 			$table = $schema->createTable('migrations');
@@ -53,6 +53,4 @@ abstract class AbstractCommand implements CommandInterface
 
 		return $filteredFiles;
 	}
-
-
 }

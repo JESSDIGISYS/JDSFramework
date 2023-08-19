@@ -35,13 +35,11 @@ class Container implements ContainerInterface
 
 	public function get(string $id)
 	{
-		if (!$this->has($id)) 
-		{
+		if (!$this->has($id)) {
 			if (!class_exists($id)) {
 				throw new ContainerException("Service $id could not be resolved");
 			}
 			$this->add($id);
-
 		}
 
 		$object = $this->resolve($this->services[$id]);
@@ -56,12 +54,12 @@ class Container implements ContainerInterface
 		return array_key_exists($id, $this->services);
 	}
 
-	private function resolve($class) : object
+	private function resolve($class): object
 	{
 		// 1. Instantiate a Reflection class (dump and check)
 		$reflectionClass = new ReflectionClass($class);
-		
-	
+
+
 		// 2. Use Reflection to try to obtain a class constructor
 		$constructor = $reflectionClass->getConstructor();
 
@@ -72,7 +70,7 @@ class Container implements ContainerInterface
 
 		// 4. If there is a constructor then Get the constructor parameters
 		$constructorParams = $constructor->getParameters();
-		
+
 		// 5. Obtain dependencies
 		$classDependencies = $this->resolveClassDependencies($constructorParams);
 
@@ -82,10 +80,9 @@ class Container implements ContainerInterface
 
 		// 7. Return the object
 		return $service;
-
 	}
 
-	private function resolveClassDependencies(array $reflectionParameters) : array
+	private function resolveClassDependencies(array $reflectionParameters): array
 	{
 		// 1. Initialize empty dependencies array (required by newInstanceArgs)
 
@@ -97,10 +94,10 @@ class Container implements ContainerInterface
 
 			// Get the parameter's ReflectionNamedType as $serviceType (what type is this parameter)
 			$serviceType = $parameter->getType();
-			
+
 			// Try to instantiate using $serviceType's name (name of the class)
 			$service = $this->get($serviceType->getName());
-			
+
 
 			// Add the service to the classDependencies array
 			$classDependencies[] = $service;

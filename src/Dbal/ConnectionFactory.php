@@ -5,12 +5,11 @@ namespace JDS\Dbal;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 
-class ConnectionFactory 
+class ConnectionFactory
 {
 
 	public function __construct(private string $databaseUrl)
 	{
-
 	}
 
 	public function create(): Connection
@@ -18,4 +17,3 @@ class ConnectionFactory
 		return DriverManager::getConnection(['url' => $this->databaseUrl]);
 	}
 }
-
